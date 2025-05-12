@@ -1,14 +1,26 @@
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Enhanced and Modernized CSS */
+
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --secondary: #f59e0b;
+    --success: #28a745;
+    --error: #c62828;
+    --background: #f9fafb;
+    --text: #1f2937;
+    --white: #ffffff;
+    --light-gray: #f1f1f1;
+    --highlight: #e0e7ff;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #f5f5f5;
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -17,46 +29,46 @@ body {
     padding: 20px;
 }
 
-/* Header styles */
 header {
     text-align: center;
     margin-bottom: 30px;
 }
 
 header h1 {
-    color: #2c3e50;
+    color: var(--primary);
     margin-bottom: 10px;
 }
 
-/* Upload section styles */
 .upload-section {
     text-align: center;
     padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .upload-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     padding: 12px 24px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s ease, background-color 0.3s ease;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .upload-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background-color: #4338ca;
+    transform: scale(1.05);
 }
 
 #fileInput {
@@ -69,7 +81,6 @@ header h1 {
     font-size: 14px;
 }
 
-/* Content section styles */
 .content-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -77,18 +88,17 @@ header h1 {
     height: calc(100vh - 200px);
 }
 
-/* PDF viewer styles */
 #pdfViewer {
     width: 100%;
     min-height: 500px;
-    background-color: #f5f5f5;
+    background-color: var(--light-gray);
     border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 #pdfViewer canvas {
@@ -97,72 +107,43 @@ header h1 {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.pdf-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.pdf-controls button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.pdf-controls button:hover {
-    background-color: #0056b3;
-}
-
-.pdf-controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-#pageInfo {
-    font-size: 16px;
-    color: #666;
-}
-
-/* Chat section styles */
 .chat-section {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     height: 100%;
+    transition: all 0.3s ease;
 }
 
 .chat-history {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
+    background-color: var(--light-gray);
+    border-radius: 12px 12px 0 0;
 }
 
 .message {
     margin-bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
     max-width: 80%;
+    animation: fadeIn 0.3s ease;
 }
 
 .user-message {
-    background-color: #3498db;
+    background-color: var(--primary);
     color: white;
     margin-left: auto;
 }
 
 .ai-message {
-    background-color: #f1f1f1;
-    color: #333;
+    background-color: var(--white);
+    color: var(--text);
     margin-right: auto;
+    border: 1px solid #e0e0e0;
     white-space: pre-line;
 }
 
@@ -171,345 +152,134 @@ header h1 {
     border-top: 1px solid #eee;
     display: flex;
     gap: 10px;
+    background-color: var(--white);
+    border-radius: 0 0 12px 12px;
 }
 
 .chat-input textarea {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     resize: none;
-    height: 60px;
+    height: 100px;
     font-family: inherit;
+    font-size: 16px;
 }
 
 .chat-input button {
-    padding: 10px 20px;
-    background-color: #3498db;
+    padding: 14px 24px;
+    background-color: var(--secondary);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.chat-input button:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .chat-input button:hover:not(:disabled) {
-    background-color: #2980b9;
+    background-color: #d97706;
 }
 
-/* Error message styles */
-.error-message {
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ef9a9a;
-    display: none;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .content-section {
-        grid-template-columns: 1fr;
-    }
-    
-    .chat-section {
-        height: 400px;
-    }
-    
-    .pdf-viewer {
-        height: 500px;
-    }
-}
-
-/* Button styles */
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-#askBtn, #generateQuestionsBtn {
-    flex: 1;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 150px;
-}
-
-#askBtn {
-    background-color: #007bff;
-    color: white;
-}
-
-#generateQuestionsBtn {
-    background-color: #28a745;
-    color: white;
-}
-
-#askBtn:hover, #generateQuestionsBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-#askBtn:disabled, #generateQuestionsBtn:disabled {
-    background-color: #cccccc;
+.chat-input button:disabled {
+    background-color: #ccc;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Question formatting */
-.message.ai-message {
-    white-space: pre-line;
-    line-height: 1.6;
-    padding: 15px;
-    margin: 10px 0;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.message.ai-message strong {
-    color: #007bff;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.question-link {
-    cursor: pointer;
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    color: #2c3e50;
-    font-size: 15px;
-    line-height: 1.5;
-    background-color: #f8f9fa;
-    border-left: 4px solid #007bff;
-}
-
-.question-link:hover {
-    background-color: #e9ecef;
-    transform: translateX(5px);
-    color: #007bff;
-}
-
-/* Input section improvements */
-.input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 textarea#questionInput {
     width: 100%;
-    min-height: 100px;
-    padding: 12px;
+    min-height: 150px;
+    padding: 16px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     resize: vertical;
 }
 
-.page-jump {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 #pageJumpInput {
-    width: 80px;
-    padding: 8px;
+    width: 120px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-#pageJumpInput:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 #jumpToPage {
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#jumpToPage:hover {
-    background-color: #218838;
-}
-
-#jumpToPage:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Question Container Styles */
-.question-container {
-    margin: 15px 0;
-    padding: 20px;
-    background-color: #ffffff;
+    padding: 12px 24px;
+    font-size: 16px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.question-content {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.feedback-content {
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* Feedback Message Styles */
-.feedback-message {
-    width: 100%;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-.feedback-section {
-    margin-bottom: 25px;
-    width: 100%;
-}
-
-.feedback-section:last-child {
-    margin-bottom: 0;
-}
-
-.feedback-section strong {
-    display: block;
-    margin-bottom: 12px;
-    color: #2c3e50;
-    font-size: 1.2em;
-}
-
-.feedback-section.analysis {
-    padding: 15px;
-    background-color: #fff3cd;
-    border-radius: 8px;
-}
-
-.feedback-section.complete-answer {
-    padding: 15px;
-    background-color: #d4edda;
-    border-radius: 8px;
-}
-
-.answer-content {
-    line-height: 1.8;
-    font-size: 15px;
-}
-
-.answer-content p {
-    margin-bottom: 15px;
-    text-align: justify;
-}
-
-.answer-content ul {
-    margin: 15px 0;
-    padding-left: 20px;
-}
-
-.answer-content li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-/* Answer Form Styles */
-.answer-form {
-    margin-top: 15px;
-    width: 100%;
 }
 
 .answer-input {
     width: 100%;
-    min-height: 120px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ced4da;
+    min-height: 150px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    border: 1px solid #ccc;
     border-radius: 8px;
     resize: vertical;
-    font-size: 15px;
-    line-height: 1.6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-family: 'Poppins', sans-serif;
 }
 
 .submit-answer-btn {
     padding: 12px 24px;
-    background-color: #007bff;
+    background-color: var(--primary);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 15px;
-    transition: all 0.2s ease;
-    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
 .submit-answer-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
+    background-color: #4338ca;
 }
 
-.submit-answer-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* Chat History Styles */
-.chat-history {
-    width: 100%;
-    max-height: 800px;
-    overflow-y: auto;
-    padding: 20px;
-    background-color: #fff;
+.question-link {
+    cursor: pointer;
+    padding: 12px 18px;
+    margin: 10px 0;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--white);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 1px solid transparent;
 }
 
-.message {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    width: 100%;
+.question-link:hover {
+    background-color: var(--highlight);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
 }
 
-.user-message {
-    background-color: #e3f2fd;
-    margin-left: 0;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content-section {
+        grid-template-columns: 1fr;
+    }
+    .chat-section {
+        height: 400px;
+    }
+    .upload-button {
+        width: 100%;
+        font-size: 18px;
+    }
 }
 
-.ai-message {
-    background-color: #f5f5f5;
-    margin-right: 0;
-} 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
