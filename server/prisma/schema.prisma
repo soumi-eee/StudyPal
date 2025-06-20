@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Change from PostgreSQL to SQLite
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and profile management
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  passwordHash  String
+  fullName      String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLogin     DateTime?
+
+  // Relations
+  documents      Document[]
+  studySessions  StudySession[]
+  questions      Question[]
+  bookmarks      Bookmark[]
+}
+
+// Document model for storing PDF files and their extracted text
+model Document {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @db.ObjectId
+  title         String
+  filePath      String
+  extractedText String?
+  pageCount     Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  user          User          @relation(fields: [userId], references: [id])
+  studySessions StudySession[]
+  questions     Question[]
+  bookmarks     Bookmark[]
+}
+
+// StudySession model for tracking study time
+model StudySession {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  documentId  String    @db.ObjectId
+  startTime   DateTime
+  endTime     DateTime?
+  duration    Int?      // in minutes
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id])
+  document    Document  @relation(fields: [documentId], references: [id])
+  questions   Question[]
+}
+
+// Question model for storing Q&A history
+model Question {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String    @db.ObjectId
+  documentId   String    @db.ObjectId
+  sessionId    String?   @db.ObjectId
+  questionText String
+  answerText   String
+  createdAt    DateTime  @default(now())
+
+  // Relations
+  user        User          @relation(fields: [userId], references: [id])
+  document    Document      @relation(fields: [documentId], references: [id])
+  session     StudySession? @relation(fields: [sessionId], references: [id])
+}
+
+// Bookmark model for saving important pages/sections
+model Bookmark {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  documentId  String    @db.ObjectId
+  pageNumber  Int
+  note        String?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id])
+  document    Document  @relation(fields: [documentId], references: [id])
+} 
