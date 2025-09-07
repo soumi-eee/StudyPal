@@ -1,0 +1,515 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Upload section styles */
+.upload-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#fileInput {
+    display: none;
+}
+
+#uploadStatus {
+    margin-top: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Content section styles */
+.content-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: calc(100vh - 200px);
+}
+
+/* PDF viewer styles */
+#pdfViewer {
+    width: 100%;
+    min-height: 500px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+#pdfViewer canvas {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pdf-controls button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pdf-controls button:hover {
+    background-color: #0056b3;
+}
+
+.pdf-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Chat section styles */
+.chat-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #3498db;
+    color: white;
+    margin-left: auto;
+}
+
+.ai-message {
+    background-color: #f1f1f1;
+    color: #333;
+    margin-right: auto;
+    white-space: pre-line;
+}
+
+.chat-input {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    height: 60px;
+    font-family: inherit;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-input button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.chat-input button:hover:not(:disabled) {
+    background-color: #2980b9;
+}
+
+/* Error message styles */
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ef9a9a;
+    display: none;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .content-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .chat-section {
+        height: 400px;
+    }
+    
+    .pdf-viewer {
+        height: 500px;
+    }
+}
+
+/* Button styles */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#askBtn, #generateQuestionsBtn {
+    flex: 1;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+#askBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+#generateQuestionsBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#askBtn:hover, #generateQuestionsBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#askBtn:disabled, #generateQuestionsBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Question formatting */
+.message.ai-message {
+    white-space: pre-line;
+    line-height: 1.6;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.message.ai-message strong {
+    color: #007bff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.question-link {
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    color: #2c3e50;
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+}
+
+.question-link:hover {
+    background-color: #e9ecef;
+    transform: translateX(5px);
+    color: #007bff;
+}
+
+/* Input section improvements */
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+textarea#questionInput {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.page-jump {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#pageJumpInput {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#pageJumpInput:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+#jumpToPage {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#jumpToPage:hover {
+    background-color: #218838;
+}
+
+#jumpToPage:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Question Container Styles */
+.question-container {
+    margin: 15px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.question-content {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.feedback-content {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Feedback Message Styles */
+.feedback-message {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.feedback-section {
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.feedback-section:last-child {
+    margin-bottom: 0;
+}
+
+.feedback-section strong {
+    display: block;
+    margin-bottom: 12px;
+    color: #2c3e50;
+    font-size: 1.2em;
+}
+
+.feedback-section.analysis {
+    padding: 15px;
+    background-color: #fff3cd;
+    border-radius: 8px;
+}
+
+.feedback-section.complete-answer {
+    padding: 15px;
+    background-color: #d4edda;
+    border-radius: 8px;
+}
+
+.answer-content {
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.answer-content p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.answer-content ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.answer-content li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Answer Form Styles */
+.answer-form {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.answer-input {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.submit-answer-btn {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.submit-answer-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.submit-answer-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Chat History Styles */
+.chat-history {
+    width: 100%;
+    max-height: 800px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.user-message {
+    background-color: #e3f2fd;
+    margin-left: 0;
+}
+
+.ai-message {
+    background-color: #f5f5f5;
+    margin-right: 0;
+} 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPal - AI Study Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>StudyPal</h1>
+            <p>Upload your PDF and start learning with AI</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <label for="fileInput" class="upload-button">Choose PDF File</label>
+                <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
+                <div id="uploadStatus"></div>
+                <div class="ai-controls">
+                    <button id="askAiBtn" class="ai-button">Ask AI</button>
+                    <button id="generateQuestionsBtn" class="ai-button">Generate Questions</button>
+                </div>
+                </section>
+
+            <section class="content-section">
+                <div class="pdf-container">
+                    <div id="pdfViewer"></div>
+                    <div class="pdf-controls">
+                        <button id="prevPage">Previous</button>
+                        <span id="pageInfo">Page 1 of 1</span>
+                        <button id="nextPage">Next</button>
+                        <div class="page-jump">
+                            <input type="number" id="pageJumpInput" min="1" placeholder="Go to page">
+                            <button id="jumpToPage">Go</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-section">
+                    <div id="error-message" class="error-message" style="display: none;"></div>
+                    <div class="chat-history" id="chatHistory"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,385 @@
+/* Enhanced and Modernized CSS */
+
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --secondary: #f59e0b;
+    --success: #28a745;
+    --error: #c62828;
+    --background: #4CAF50;
+    --text: #000000;
+    --white: #ffffff;
+    --light-gray: #f1f1f1;
+    --highlight: #e0e7ff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.upload-section {
+    text-align: center;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.upload-button:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
+}
+
+#fileInput {
+    display: none;
+}
+
+#uploadStatus {
+    margin-top: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.content-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: calc(100vh - 350px);
+    align-items: start;
+}
+
+.pdf-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    max-height: 600px;
+}
+
+#pdfViewer {
+    width: 100%;
+    height: 540px;
+    max-height: 540px;
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+#pdfViewer canvas {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-section {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    max-height: 600px;
+    transition: all 0.3s ease;
+}
+
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: var(--light-gray);
+    border-radius: 12px;
+    height: 100%;
+    max-height: 540px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease;
+}
+
+.user-message {
+    background-color: var(--primary);
+    color: white;
+    margin-left: auto;
+}
+
+.ai-message {
+    background-color: var(--white);
+    color: var(--text);
+    margin-right: auto;
+    border: 1px solid #e0e0e0;
+    white-space: pre-line;
+}
+
+.chat-input {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    background-color: var(--white);
+    border-radius: 0 0 12px 12px;
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    height: 100px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.ai-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.ai-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ai-button:hover:not(:disabled) {
+    background-color: #4338ca;
+    transform: scale(1.05);
+}
+
+.ai-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+textarea#questionInput {
+    width: 100%;
+    min-height: 150px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: vertical;
+}
+
+#pageJumpInput {
+    width: 120px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: var(--white);
+    color: var(--text);
+}
+
+#jumpToPage {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--text);
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+#jumpToPage:hover {
+    background-color: #f0f0f0;
+}
+
+.answer-input {
+    width: 100%;
+    min-height: 150px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-family: 'Poppins', sans-serif;
+}
+
+.submit-answer-btn {
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submit-answer-btn:hover {
+    background-color: #4338ca;
+}
+
+.question-link {
+    cursor: pointer;
+    padding: 12px 18px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: var(--white);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 1px solid transparent;
+}
+
+.question-link:hover {
+    background-color: var(--highlight);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content-section {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-section {
+        height: 400px;
+    }
+
+    .upload-button {
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#jumpToPage:hover {
+    background-color: #f0f0f0;
+}
+
+.pdf-controls {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-controls button {
+    background-color: var(--white);
+    color: var(--text);
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.pdf-controls button:hover:not(:disabled) {
+    background-color: #f0f0f0;
+}
+
+.pdf-controls button:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.page-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.question-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    scroll-margin-top: 20px; /* Add space when scrolling to question */
+}
+
+.loading-message {
+    background-color: #e3f2fd !important;
+    border-left: 4px solid #2196f3 !important;
+    font-style: italic;
+    animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
