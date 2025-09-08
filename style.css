@@ -269,9 +269,11 @@ body {
 }
 
 .tab-content.active {
-    display: block;
+    display: flex;
     opacity: 1;
     transform: translateY(0);
+    flex-direction: column;
+    height: 100%;
 }
 
 /* Chat Content Styles */
