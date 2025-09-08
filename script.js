@@ -11,12 +11,16 @@ const chatHistory = document.getElementById('chatHistory');
 const uploadStatus = document.getElementById('uploadStatus');
 const pageJumpInput = document.getElementById('pageJumpInput');
 const jumpToPageBtn = document.getElementById('jumpToPage');
+const questionInput = document.getElementById('questionInput');
+const submitQuestionBtn = document.getElementById('submitQuestionBtn');
+const questionsContainer = document.getElementById('questionsContainer');
 
 // State management
 let currentPDF = null;
 let currentPage = 1;
 let pageCount = 0;
 let isProcessing = false;
+let activeTab = 'ask-ai';
 
 // API Configuration
 const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
@@ -146,6 +150,40 @@ async function getAIResponse(question, userAnswer = "", context = "") {
             throw new Error('Invalid Gemini API key. Please check your API key.');
         }
         throw new Error(`Failed to get AI response: ${error.message}`);
+    }
+}
+
+// Tab switching functionality
+function switchTab(tabName) {
+    // Update active tab
+    activeTab = tabName;
+    
+    // Update navigation
+    document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.remove('active');
+        if (nav.getAttribute('data-tab') === tabName) {
+            nav.classList.add('active');
+        }
+    });
+    
+    // Update tab content
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    setTimeout(() => {
+        const activeTabElement = document.getElementById(tabName + '-tab');
+        if (activeTabElement) {
+            activeTabElement.classList.add('active');
+        }
+    }, 150);
+}
+
+// Handle ask AI question submission
+function handleAskAI() {
+    const question = questionInput?.value?.trim();
+    if (question) {
+        handleQuestion(question);
     }
 }
 
@@ -535,6 +573,11 @@ Please provide a direct, informative answer based only on the content provided.`
         const answer = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't generate an answer. Please try again.";
 
         addMessageToChat('ai', answer);
+        
+        // Clear the input
+        if (questionInput) {
+            questionInput.value = '';
+        }
 
     } catch (error) {
         console.error('API Error:', error);
@@ -632,30 +675,28 @@ Generate 5 questions now:`
             }
 
             return `
-                <div class="question-container" id="question-${index + 1}">
-                    <div class="question-content">
-                        <div class="question-link" onclick="selectQuestion('${questionText.replace(/'/g, "\\'")}')">${index + 1}. ${questionText}</div>
-                        <div class="answer-form">
-                            <textarea class="answer-input" placeholder="Enter your answer here..."></textarea>
-                            <button class="submit-answer-btn" onclick="submitAnswer('${questionText.replace(/'/g, "\\'")}', this)">Submit Answer</button>
-                        </div>
+                <div class="question-item" id="question-${index + 1}">
+                    <h3>Question ${index + 1}</h3>
+                    <p>${questionText}</p>
+                    <div class="answer-form" style="margin-top: 1rem;">
+                        <textarea class="answer-input" placeholder="Enter your answer here..." style="width: 100%; margin-bottom: 1rem;"></textarea>
+                        <button class="submit-answer-btn" onclick="submitAnswer('${questionText.replace(/'/g, "\\'")}', this)">Submit Answer</button>
+                        <div class="feedback-content" style="margin-top: 1rem;"></div>
                     </div>
-                    <div class="feedback-content"></div>
                 </div>
             `;
         }).join('');
 
-        questionsDiv.innerHTML = `<strong>AI:</strong> Here are some questions about page ${currentPage}:<br><br>${formattedQuestions}`;
-        chatHistory.appendChild(questionsDiv);
-        chatHistory.scrollTop = chatHistory.scrollHeight;
+        questionsContainer.innerHTML = formattedQuestions;
 
-        // Scroll to the first question
+        // Switch to questions tab and scroll to first question
+        switchTab('generate-questions');
         setTimeout(() => {
             const firstQuestionElement = document.getElementById('question-1');
             if (firstQuestionElement) {
                 firstQuestionElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
-        }, 100);
+        }, 300);
 
     } catch (error) {
         console.error('API Error:', error);
@@ -763,6 +804,67 @@ function resetPDFState() {
     pageInfo.style.display = 'none';
     pdfViewer.innerHTML = 'Please upload a PDF file';
 }
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    // Navigation event listeners
+    document.querySelectorAll('.nav-item').forEach(navItem => {
+        navItem.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            if (tabName) {
+                switchTab(tabName);
+            }
+        });
+    });
+
+    // File input event listener
+    if (document.getElementById('fileInput')) {
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                loadPDF(file);
+            }
+        });
+    }
+
+    // Navigation buttons
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) loadPage(currentPage - 1);
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        if (currentPage < pageCount) loadPage(currentPage + 1);
+    });
+
+    if (jumpToPageBtn) jumpToPageBtn.addEventListener('click', () => {
+        const pageNumber = parseInt(pageJumpInput.value);
+        if (pageNumber >= 1 && pageNumber <= pageCount) {
+            loadPage(pageNumber);
+        }
+    });
+
+    // Chat input event listeners
+    if (submitQuestionBtn) {
+        submitQuestionBtn.addEventListener('click', handleAskAI);
+    }
+
+    if (questionInput) {
+        questionInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleAskAI();
+            }
+        });
+    }
+
+    // Generate questions button
+    if (generateQuestionsBtn) {
+        generateQuestionsBtn.addEventListener('click', generateQuestions);
+    }
+
+    // Initialize with Ask AI tab active
+    switchTab('ask-ai');
+});
 
 // Event listeners
 document.getElementById('fileInput').addEventListener('change', async (e) => {

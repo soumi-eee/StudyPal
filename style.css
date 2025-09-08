@@ -65,9 +65,11 @@ body {
     color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
     transition: all 0.3s ease;
+    user-select: none;
+    position: relative;
 }
 
 .nav-item:hover {
@@ -77,8 +79,12 @@ body {
 
 .nav-item.active {
     color: white;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    transform: translateY(-1px);
 }
 
 /* Dashboard Layout */
@@ -88,14 +94,23 @@ body {
 }
 
 .dashboard-container {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    grid-template-areas:
-        "upload ai-controls"
-        "pdf-viewer chat";
+    min-height: calc(100vh - 200px);
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Card Base Styles */
@@ -147,22 +162,24 @@ body {
 }
 
 /* Specific Card Layouts */
-.upload-card {
-    grid-area: upload;
-}
-
-.ai-controls-card {
-    grid-area: ai-controls;
-}
-
 .pdf-viewer-card {
-    grid-area: pdf-viewer;
+    flex: 1;
     min-height: 600px;
 }
 
-.chat-card {
-    grid-area: chat;
+.chat-card,
+.questions-card {
+    height: 100%;
     min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-card .card-content,
+.questions-card .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .upload-card .card-content {
@@ -242,12 +259,27 @@ body {
     border-radius: 8px;
 }
 
-/* Chat Card Styles */
+/* Tab System Styles */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Chat Content Styles */
 .chat-content {
-    padding: 0;
-    height: 500px;
+    flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .chat-history {
@@ -256,8 +288,8 @@ body {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border-radius: 12px;
-    margin: 0 1.5rem 1.5rem;
     overflow-y: auto;
+    min-height: 400px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
@@ -279,18 +311,74 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* AI Controls Styling */
-.ai-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+/* Chat Input Styles */
+.chat-input-container {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 16px 16px;
 }
 
-.ai-controls .ai-button {
-    width: 100%;
-    justify-content: center;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+.chat-input {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.chat-input textarea {
+    flex: 1;
+    resize: none;
+    min-height: 60px;
+    max-height: 120px;
+}
+
+/* Questions Container Styles */
+.questions-controls {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.questions-container {
+    flex: 1;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    margin: 1.5rem;
+    overflow-y: auto;
+    min-height: 400px;
+}
+
+.question-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.question-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.question-item h3 {
+    color: white;
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.question-item p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.5;
 }
 
 /* PDF Controls in Header */
@@ -561,11 +649,15 @@ textarea#questionInput {
 @media (max-width: 1200px) {
     .dashboard-container {
         grid-template-columns: 1fr;
-        grid-template-areas:
-            "upload"
-            "ai-controls"
-            "pdf-viewer"
-            "chat";
+        gap: 1.5rem;
+    }
+    
+    .left-panel {
+        order: 1;
+    }
+    
+    .right-panel {
+        order: 2;
     }
     
     .header-content {
@@ -597,13 +689,26 @@ textarea#questionInput {
         padding: 1rem;
     }
     
-    .pdf-viewer,
-    .chat-content {
-        height: 400px;
+    .pdf-viewer {
+        height: 300px;
+    }
+    
+    .chat-history,
+    .questions-container {
+        min-height: 300px;
     }
     
     .nav-bar {
-        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .nav-item {
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+        text-align: center;
+        max-width: 200px;
     }
     
     .logo h1 {
@@ -618,6 +723,15 @@ textarea#questionInput {
     
     .page-jump {
         justify-content: center;
+    }
+    
+    .chat-input {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .chat-input textarea {
+        min-height: 80px;
     }
 }
 

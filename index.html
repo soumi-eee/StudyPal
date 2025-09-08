@@ -18,9 +18,8 @@
                 <h1>StudyPal</h1>
             </div>
             <nav class="nav-bar">
-                <div class="nav-item active">Dashboard</div>
-                <div class="nav-item">Library</div>
-                <div class="nav-item">Settings</div>
+                <div class="nav-item active" data-tab="ask-ai">Ask AI</div>
+                <div class="nav-item" data-tab="generate-questions">Generate Questions</div>
             </nav>
         </div>
     </header>
@@ -29,61 +28,77 @@
     <main class="dashboard">
         <div class="dashboard-container">
             
-            <!-- Upload Card -->
-            <div class="card upload-card">
-                <div class="card-header">
-                    <h2>Upload Document</h2>
-                    <p>Choose your PDF file to get started</p>
+            <!-- Left Panel - PDF Section -->
+            <div class="left-panel">
+                <!-- Upload Card -->
+                <div class="card upload-card">
+                    <div class="card-header">
+                        <h2>Upload Document</h2>
+                        <p>Choose your PDF file to get started</p>
+                    </div>
+                    <div class="card-content">
+                        <label for="fileInput" class="upload-button">Choose PDF File</label>
+                        <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
+                        <div id="uploadStatus" class="upload-status"></div>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <label for="fileInput" class="upload-button">Choose PDF File</label>
-                    <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
-                    <div id="uploadStatus" class="upload-status"></div>
-                </div>
-            </div>
 
-            <!-- AI Controls Card -->
-            <div class="card ai-controls-card">
-                <div class="card-header">
-                    <h2>AI Assistant</h2>
-                    <p>Interact with your document using AI</p>
-                </div>
-                <div class="card-content">
-                    <div class="ai-controls">
-                        <button id="askAiBtn" class="ai-button">Ask AI Question</button>
-                        <button id="generateQuestionsBtn" class="ai-button">Generate Study Questions</button>
+                <!-- PDF Viewer Card -->
+                <div class="card pdf-viewer-card">
+                    <div class="card-header">
+                        <h2>Document Viewer</h2>
+                        <div class="pdf-controls">
+                            <button id="prevPage">Previous</button>
+                            <span id="pageInfo">Page 1 of 1</span>
+                            <button id="nextPage">Next</button>
+                            <div class="page-jump">
+                                <input type="number" id="pageJumpInput" min="1" placeholder="Go to page">
+                                <button id="jumpToPage">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content pdf-content">
+                        <div id="pdfViewer" class="pdf-viewer"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- PDF Viewer Card -->
-            <div class="card pdf-viewer-card">
-                <div class="card-header">
-                    <h2>Document Viewer</h2>
-                    <div class="pdf-controls">
-                        <button id="prevPage">Previous</button>
-                        <span id="pageInfo">Page 1 of 1</span>
-                        <button id="nextPage">Next</button>
-                        <div class="page-jump">
-                            <input type="number" id="pageJumpInput" min="1" placeholder="Go to page">
-                            <button id="jumpToPage">Go</button>
+            <!-- Right Panel - AI Section -->
+            <div class="right-panel">
+                <!-- Ask AI Tab Content -->
+                <div id="ask-ai-tab" class="tab-content active">
+                    <div class="card chat-card">
+                        <div class="card-header">
+                            <h2>Ask AI</h2>
+                            <p>Chat with AI about your document</p>
+                        </div>
+                        <div class="card-content chat-content">
+                            <div id="error-message" class="error-message" style="display: none;"></div>
+                            <div class="chat-history" id="chatHistory"></div>
+                            <div class="chat-input-container">
+                                <div class="chat-input">
+                                    <textarea id="questionInput" placeholder="Ask a question about your document..." rows="3"></textarea>
+                                    <button id="submitQuestionBtn" class="ai-button">Send Question</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-content pdf-content">
-                    <div id="pdfViewer" class="pdf-viewer"></div>
-                </div>
-            </div>
 
-            <!-- Chat Card -->
-            <div class="card chat-card">
-                <div class="card-header">
-                    <h2>AI Conversation</h2>
-                    <p>Chat with AI about your document</p>
-                </div>
-                <div class="card-content chat-content">
-                    <div id="error-message" class="error-message" style="display: none;"></div>
-                    <div class="chat-history" id="chatHistory"></div>
+                <!-- Generate Questions Tab Content -->
+                <div id="generate-questions-tab" class="tab-content">
+                    <div class="card questions-card">
+                        <div class="card-header">
+                            <h2>Study Questions</h2>
+                            <p>AI-generated questions based on your document</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="questions-controls">
+                                <button id="generateQuestionsBtn" class="ai-button">Generate New Questions</button>
+                            </div>
+                            <div id="questionsContainer" class="questions-container"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
