@@ -18,7 +18,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: var(--background);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
     color: var(--text);
     transition: background-color 0.3s, color 0.3s;
 }
@@ -32,20 +33,32 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 header h1 {
-    color: var(--text);
+    color: white;
     margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
 }
 
 .upload-section {
     text-align: center;
     padding: 20px;
-    background: var(--white);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 
@@ -55,21 +68,27 @@ header h1 {
     align-items: center;
     gap: 10px;
     padding: 12px 24px;
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: var(--white);
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
 .upload-button:hover {
-    background-color: #4338ca;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(102, 126, 234, 0.3);
 }
 
 #fileInput {
@@ -101,14 +120,16 @@ header h1 {
     width: 100%;
     height: 540px;
     max-height: 540px;
-    background-color: var(--white);
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 #pdfViewer canvas {
@@ -118,9 +139,12 @@ header h1 {
 }
 
 .chat-section {
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     height: 600px;
@@ -132,7 +156,8 @@ header h1 {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
-    background-color: var(--light-gray);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-radius: 12px;
     height: 100%;
     max-height: 540px;
@@ -147,37 +172,48 @@ header h1 {
 }
 
 .user-message {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     margin-left: auto;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .ai-message {
-    background-color: var(--white);
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    color: white;
     margin-right: auto;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     white-space: pre-line;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .chat-input {
     padding: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     gap: 10px;
-    background-color: var(--white);
-    border-radius: 0 0 12px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 16px 16px;
 }
 
 .chat-input textarea {
     flex: 1;
     padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     resize: none;
     height: 100px;
     font-family: inherit;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    transition: all 0.3s ease;
 }
 
 .ai-controls {
@@ -192,21 +228,25 @@ header h1 {
     align-items: center;
     gap: 10px;
     padding: 12px 24px;
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: var(--white);
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .ai-button:hover:not(:disabled) {
-    background-color: #4338ca;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(102, 126, 234, 0.3);
 }
 
 .ai-button:disabled {
@@ -228,25 +268,32 @@ textarea#questionInput {
 #pageJumpInput {
     width: 120px;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
     font-size: 16px;
-    background-color: var(--white);
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    transition: all 0.3s ease;
 }
 
 #jumpToPage {
     padding: 12px 24px;
     font-size: 16px;
     border-radius: 8px;
-    background-color: var(--white);
-    color: var(--text);
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 #jumpToPage:hover {
-    background-color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .answer-input {
@@ -255,44 +302,60 @@ textarea#questionInput {
     padding: 16px;
     font-size: 16px;
     line-height: 1.6;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     resize: vertical;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
     font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
 .submit-answer-btn {
     padding: 12px 24px;
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     margin-top: 10px;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .submit-answer-btn:hover {
-    background-color: #4338ca;
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(102, 126, 234, 0.3);
 }
 
 .question-link {
     cursor: pointer;
     padding: 12px 18px;
     margin: 10px 0;
-    border-radius: 8px;
-    background-color: var(--white);
-    transition: background-color 0.3s, box-shadow 0.3s;
-    border: 1px solid transparent;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .question-link:hover {
-    background-color: var(--highlight);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 
+                0 0 20px rgba(102, 126, 234, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
 }
 
 /* Responsive Design */
@@ -325,29 +388,39 @@ textarea#questionInput {
 }
 
 #jumpToPage:hover {
-    background-color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .pdf-controls {
-    background-color: var(--white);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-top: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .pdf-controls button {
-    background-color: var(--white);
-    color: var(--text);
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     margin: 0 5px;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .pdf-controls button:hover:not(:disabled) {
-    background-color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .pdf-controls button:disabled {
@@ -365,11 +438,15 @@ textarea#questionInput {
 
 .question-container {
     margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    scroll-margin-top: 20px; /* Add space when scrolling to question */
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    scroll-margin-top: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
 .loading-message {
@@ -382,4 +459,46 @@ textarea#questionInput {
 @keyframes pulse {
     0% { opacity: 0.6; }
     100% { opacity: 1; }
+}
+
+/* Glassmorphism Input Styling */
+.chat-input textarea::placeholder,
+.answer-input::placeholder,
+#pageJumpInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chat-input textarea:focus,
+.answer-input:focus,
+#pageJumpInput:focus {
+    outline: none;
+    border-color: rgba(102, 126, 234, 0.8);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+/* Enhanced glassmorphism effects */
+.upload-section:hover,
+.chat-section:hover,
+.question-container:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Disabled button styling */
+.ai-button:disabled,
+.upload-button:disabled,
+.submit-answer-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
