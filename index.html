@@ -11,26 +11,55 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>StudyPal</h1>
-            <p>Upload your PDF and start learning with AI</p>
-        </header>
+    <!-- Sticky Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>StudyPal</h1>
+            </div>
+            <nav class="nav-bar">
+                <div class="nav-item active">Dashboard</div>
+                <div class="nav-item">Library</div>
+                <div class="nav-item">Settings</div>
+            </nav>
+        </div>
+    </header>
 
-        <main>
-            <section class="upload-section">
-                <label for="fileInput" class="upload-button">Choose PDF File</label>
-                <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
-                <div id="uploadStatus"></div>
-                <div class="ai-controls">
-                    <button id="askAiBtn" class="ai-button">Ask AI</button>
-                    <button id="generateQuestionsBtn" class="ai-button">Generate Questions</button>
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+        <div class="dashboard-container">
+            
+            <!-- Upload Card -->
+            <div class="card upload-card">
+                <div class="card-header">
+                    <h2>Upload Document</h2>
+                    <p>Choose your PDF file to get started</p>
                 </div>
-                </section>
+                <div class="card-content">
+                    <label for="fileInput" class="upload-button">Choose PDF File</label>
+                    <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
+                    <div id="uploadStatus" class="upload-status"></div>
+                </div>
+            </div>
 
-            <section class="content-section">
-                <div class="pdf-container">
-                    <div id="pdfViewer"></div>
+            <!-- AI Controls Card -->
+            <div class="card ai-controls-card">
+                <div class="card-header">
+                    <h2>AI Assistant</h2>
+                    <p>Interact with your document using AI</p>
+                </div>
+                <div class="card-content">
+                    <div class="ai-controls">
+                        <button id="askAiBtn" class="ai-button">Ask AI Question</button>
+                        <button id="generateQuestionsBtn" class="ai-button">Generate Study Questions</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Viewer Card -->
+            <div class="card pdf-viewer-card">
+                <div class="card-header">
+                    <h2>Document Viewer</h2>
                     <div class="pdf-controls">
                         <button id="prevPage">Previous</button>
                         <span id="pageInfo">Page 1 of 1</span>
@@ -41,13 +70,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat-section">
+                <div class="card-content pdf-content">
+                    <div id="pdfViewer" class="pdf-viewer"></div>
+                </div>
+            </div>
+
+            <!-- Chat Card -->
+            <div class="card chat-card">
+                <div class="card-header">
+                    <h2>AI Conversation</h2>
+                    <p>Chat with AI about your document</p>
+                </div>
+                <div class="card-content chat-content">
                     <div id="error-message" class="error-message" style="display: none;"></div>
                     <div class="chat-history" id="chatHistory"></div>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
