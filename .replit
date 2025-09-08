@@ -40,7 +40,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python -m http.server 5000 --bind 0.0.0.0"
+args = "static-web-server -w ./.config/static-web-server.toml"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
@@ -52,7 +52,7 @@ externalPort = 80
 
 [[ports]]
 localPort = 5000
-externalPort = 5000
+externalPort = 80
 
 [agent]
 expertMode = true
