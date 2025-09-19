@@ -1,0 +1,8 @@
+Flask==2.3.3
+Flask-CORS==4.0.0
+pytesseract==0.3.10
+PyMuPDF==1.23.26
+Pillow==10.0.1
+google-generativeai
+requests==2.31.0
+python-dotenv==1.0.0

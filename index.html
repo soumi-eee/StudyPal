@@ -1,110 +1,150 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyPal - AI Study Assistant</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyPal - AI-Powered Study Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
 <body>
-    <!-- Sticky Header -->
-    <header class="sticky-header">
-        <div class="header-content">
-            <div class="logo">
-                <h1>StudyPal</h1>
-            </div>
-            <nav class="nav-bar">
-                <div class="nav-item active" data-tab="ask-ai">Ask AI</div>
-                <div class="nav-item" data-tab="generate-questions">Generate Questions</div>
-            </nav>
+  <nav>
+    <h1 class="logo">🎓 StudyPal</h1>
+    <div class="nav-links" id="navLinks">
+      <a href="#" id="uploadTab">📄 Upload</a>
+      <a href="#" id="chatTab">💬 Ask AI</a>
+      <a href="#" id="questionsTab">❓ Generate Questions</a>
+      <a href="#" id="logoutBtn">🚪 Logout</a>
+    </div>
+  </nav>
+
+  <div id="loadingSpinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Processing...</p>
+  </div>
+
+  <div class="auth-container" id="authContainer">
+    <h2>Welcome to StudyPal</h2>
+    <p class="subtitle">Your AI-powered study companion</p>
+
+    <div class="auth-box">
+      <h3>Sign In</h3>
+      <input type="email" id="loginEmail" placeholder="Enter your email" required>
+      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      <button id="loginBtn" class="auth-btn">Sign In</button>
+    </div>
+
+    <div class="divider"><span>or</span></div>
+
+    <div class="auth-box">
+      <h3>Create Account</h3>
+      <input type="email" id="signupEmail" placeholder="Enter your email" required>
+      <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)" required>
+      <button id="signupBtn" class="auth-btn">Create Account</button>
+    </div>
+
+    <div id="authMessage" class="message"></div>
+  </div>
+
+  <div id="app-section" class="app-section">
+    <div class="welcome-header">
+      <h2>Welcome back! 👋</h2>
+      <p id="userEmail"></p>
+    </div>
+
+    <div id="upload-section" class="content-section">
+      <div class="section-card">
+        <h3>📄 Upload Your Study Material</h3>
+        <p>Upload PDF files or images to extract text and start studying</p>
+        
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📁</div>
+          <p>Drag and drop files here or <span class="upload-link">click to browse</span></p>
+          <small>Supported formats: PDF, PNG, JPG, JPEG</small>
+          <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.bmp,.tiff" multiple style="display: none;">
         </div>
-    </header>
+        
+        <div id="uploadResult" class="result-area"></div>
+        <div id="filesList" class="files-list"></div>
+      </div>
+    </div>
 
-    <!-- Main Dashboard -->
-    <main class="dashboard">
-        <div class="dashboard-container">
-            
-            <!-- Left Panel - PDF Section -->
-            <div class="left-panel">
-                <!-- Upload Card -->
-                <div class="card upload-card">
-                    <div class="card-header">
-                        <h2>Upload Document</h2>
-                        <p>Choose your PDF file to get started</p>
-                    </div>
-                    <div class="card-content">
-                        <label for="fileInput" class="upload-button">Choose PDF File</label>
-                        <input type="file" id="fileInput" accept=".pdf" style="display: none;" />
-                        <div id="uploadStatus" class="upload-status"></div>
-                    </div>
-                </div>
-
-                <!-- PDF Viewer Card -->
-                <div class="card pdf-viewer-card">
-                    <div class="card-header">
-                        <h2>Document Viewer</h2>
-                        <div class="pdf-controls">
-                            <button id="prevPage">Previous</button>
-                            <span id="pageInfo">Page 1 of 1</span>
-                            <button id="nextPage">Next</button>
-                            <div class="page-jump">
-                                <input type="number" id="pageJumpInput" min="1" placeholder="Go to page">
-                                <button id="jumpToPage">Go</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-content pdf-content">
-                        <div id="pdfViewer" class="pdf-viewer"></div>
-                    </div>
-                </div>
+    <div id="chat-section" class="content-section">
+      <div class="section-card">
+        <h3>💬 Ask AI Questions</h3>
+        <p>Ask questions about your uploaded documents</p>
+        
+        <div class="chat-container" id="chatContainer">
+          <div class="chat-messages" id="chatMessages">
+            <div class="ai-message">
+              <div class="message-content">
+                <strong>StudyPal AI:</strong> Hello! Upload a document and I'll help you understand it better.
+              </div>
             </div>
-
-            <!-- Right Panel - AI Section -->
-            <div class="right-panel">
-                <!-- Ask AI Tab Content -->
-                <div id="ask-ai-tab" class="tab-content active">
-                    <div class="card chat-card">
-                        <div class="card-header">
-                            <h2>Ask AI</h2>
-                            <p>Chat with AI about your document</p>
-                        </div>
-                        <div class="card-content chat-content">
-                            <div id="error-message" class="error-message" style="display: none;"></div>
-                            <div class="chat-history" id="chatHistory"></div>
-                            <div class="chat-input-container">
-                                <div class="chat-input">
-                                    <textarea id="questionInput" placeholder="Ask a question about your document..." rows="3"></textarea>
-                                    <button id="submitQuestionBtn" class="ai-button">Send Question</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Generate Questions Tab Content -->
-                <div id="generate-questions-tab" class="tab-content">
-                    <div class="card questions-card">
-                        <div class="card-header">
-                            <h2>Study Questions</h2>
-                            <p>AI-generated questions based on your document</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="questions-controls">
-                                <button id="generateQuestionsBtn" class="ai-button">Generate New Questions</button>
-                            </div>
-                            <div id="questionsContainer" class="questions-container"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
-    </main>
+        
+        <div class="chat-input-area">
+          <select id="documentSelect" class="document-select">
+            <option value="">Select a document (optional)</option>
+          </select>
+          <div class="chat-input-container">
+            <textarea id="chatInput" placeholder="Ask a question..." rows="3"></textarea>
+            <button id="sendBtn" class="send-btn">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+    <div id="questions-section" class="content-section">
+      <div class="section-card">
+        <h3>❓ Generate Practice Questions</h3>
+        <p>Create practice questions based on your uploaded documents</p>
+        
+        <div class="questions-controls">
+          <select id="questionDocument" class="document-select">
+            <option value="">Select a document</option>
+          </select>
+          
+          <div class="question-options">
+            <label><input type="radio" name="questionType" value="multiple_choice" checked> Multiple Choice</label>
+            <label><input type="radio" name="questionType" value="true_false"> True/False</label>
+            <label><input type="radio" name="questionType" value="short_answer"> Short Answer</label>
+          </div>
+          
+          <div class="question-count">
+            <label for="questionCount">Number of questions:</label>
+            <select id="questionCount">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          
+          <button id="generateBtn" class="generate-btn">Generate Questions</button>
+        </div>
+        
+        <div id="generatedQuestions" class="questions-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // IMPORTANT: Paste your own Firebase configuration details here
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9-O-Be9pD0pZjFPSJ-SAcd-ovBL0x2n4",
+  authDomain: "studypal-19739.firebaseapp.com",
+  projectId: "studypal-19739",
+  storageBucket: "studypal-19739.firebasestorage.app",
+  messagingSenderId: "183902189066",
+  appId: "1:183902189066:web:261d97ff9bf6ef497311f3",
+  measurementId: "G-8TVM1MS8KC"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="script.js"></script>
 </body>
-</html> 
+</html>

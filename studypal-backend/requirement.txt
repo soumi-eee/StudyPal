@@ -1,0 +1,7 @@
+Flask==2.2.5
+pytesseract==0.3.10
+pdfplumber==0.7.5
+pymupdf==1.24.10
+Pillow==10.0.0
+firebase-admin==7.1.0
+
